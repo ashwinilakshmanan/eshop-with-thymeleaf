@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>e-Shop</title>
+</head>
+<body>
+<h2>Product List</h2>
+<table border="1" cellpadding="1" cellspacing="1">
+    <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Quantity</th>
+    </thead>
+    <tbody>
+    <tr th:each="product:${products}" height="30">
+        <td th:text="${product.id}" width="30"/>
+        <td th:text="${product.name}"/>
+        <td th:text="${product.quantity}"/>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
