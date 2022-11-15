@@ -1,25 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="ISO-8859-1">
     <title>e-Shop</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
 </head>
 <body>
-<h2>Product List</h2>
-<table border="1" cellpadding="1" cellspacing="1">
-    <thead>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Quantity</th>
-    </thead>
-    <tbody>
-    <tr th:each="product:${products}" height="30">
-        <td th:text="${product.id}" width="30"/>
-        <td th:text="${product.name}"/>
-        <td th:text="${product.quantity}"/>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" href="#">e-shop</a>
 
-    </tr>
-    </tbody>
-</table>
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/products}">Product Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class ="container">
+    <div class = "row">
+        <h1> Product List  </h1>
+    </div>
+
+    <div class = "row">
+        <div class = "col-lg-3">
+            <a th:href = "@{/addProduct}" class = "btn btn-primary btn-sm mb-3"> Add Product</a>
+        </div>
+    </div>
+    <table class = "table table-striped table-bordered">
+        <thead class = "table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each = "product: ${products}">
+            <td th:text = "${product.id}"></td>
+            <td th:text = "${product.name}"></td>
+            <td th:text = "${product.quantity}"></td>
+            <td>
+                <a th:href = "@{/edit/{id}(id=${product.id})}"
+                   class = "btn btn-primary">Update</a>
+
+                <a th:href = "@{/delete/{id}(id=${product.id})}"
+                   class = "btn btn-danger">Delete</a>
+
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
 </body>
 </html>
+
+
+
+
+

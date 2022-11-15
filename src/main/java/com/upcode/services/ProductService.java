@@ -40,12 +40,9 @@ public class ProductService {
             return;
         }
         Product existingProduct = product.get();
-        if (prod.getName() != null) {
-            existingProduct.setName(prod.getName());
-        }
-        if (prod.getQuantity() != 0) {
-            existingProduct.setQuantity(prod.getQuantity());
-        }
+        existingProduct.setName(prod.getName());
+        existingProduct.setQuantity(prod.getQuantity());
+
         productRepository.save(existingProduct);
 
     }

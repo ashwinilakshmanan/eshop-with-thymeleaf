@@ -26,8 +26,14 @@ public class ProductController {
 
     @RequestMapping("view/products")
     public String displayProducts(Model model){
-        model.addAttribute("products",getAllProducts());
+        model.addAttribute("products",productService.getAllProducts());
         return "products";
+    }
+
+    @GetMapping("/addProduct")
+    public String addProduct(Model model){
+        model.addAttribute("product",new Product());
+        return  "add-product";
     }
 
 
