@@ -3,12 +3,14 @@ package com.upcode.controller;
 import com.upcode.model.Product;
 import com.upcode.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,34 +18,30 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    private ProductService productService;
+     ProductService productService;
 
 
     @RequestMapping("/products")
-    @ResponseBody
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
-    }
-
-    @RequestMapping("view/products")
-    public String displayAllProducts(Model model){
-        model.addAttribute("products",productService.getAllProducts());
+    public String viewSearchProduct(ModelMap model, @Param("keyword") String keyword){
+        List<Product> listProducts = productService.listAll(keyword);
+        model.addAttribute("listItems",listProducts);
+        model.addAttribute("keyword",keyword);
         return "products";
     }
 
     @GetMapping("/add_form")
-    public String addProduct(Model model){
+    public String addProduct(ModelMap model){
         Product product=new Product();
         model.addAttribute("product",product);
         return  "add-product";
     }
 
-    @PostMapping("/create_product")
-    public String createProduct(@ModelAttribute Product product, HttpSession session){
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    public String saveProduct(@ModelAttribute("product") Product product){
         productService.addProduct(product);
-        session.setAttribute("msg","Product added successfully...");
-        return "redirect:/add_form";
+        return  "redirect:/products";
     }
+
 
     @GetMapping("/edit/{id}")
     public String editProduct(Model model,@PathVariable("id") int id){
@@ -54,33 +52,26 @@ public class ProductController {
     @PostMapping("/update_product")
     public String updateProduct(Product product){
         productService.updateProduct(product);
-        return "redirect:view/products";
+        return "redirect:/products";
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteProduct(@PathVariable("id") int id){
+    public String deleteProduct(@PathVariable(name = "id") int id){
         productService.deleteProduct(id);
-        return "redirect:view/products";
+        return "redirect:/products";
+    }
+
+    @RequestMapping("/view/{id}")
+    public ModelAndView showProduct(@PathVariable(name = "id") int id){
+        ModelAndView mav=new ModelAndView("viewProduct");
+        Optional<Product> product=productService.getProduct(id);
+        mav.addObject("product",product);
+        return mav;
     }
 
 
-//    @RequestMapping("/products/{id}")
-//    public Optional<Product> getProduct(@PathVariable int id) {
-//        return productService.getProduct(id);
-//    }
-//
-//    @RequestMapping(method = RequestMethod.POST, value = "/products")
-//    public void addProduct(@RequestBody Product product) {
-//        productService.addProduct(product);
-//    }
-//
-//    @RequestMapping(method = RequestMethod.PUT, value = "/products/{id}")
-//    public void updateProduct(@RequestBody Product product, @PathVariable int id) {
-//        productService.updateProduct( product);
-//    }
-//
-//    @RequestMapping(method = RequestMethod.DELETE, value = "/products/{id}")
-//    public void deleteProduct(@PathVariable int id) {
-//        productService.deleteProduct(id);
-//    }
+
+
+
+
 }

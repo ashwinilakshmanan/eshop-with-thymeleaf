@@ -13,11 +13,10 @@ import java.util.Optional;
 public class ProductService {
 
     @Autowired
-     ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     //get all products
     public List<Product> getAllProducts() {
-
         return productRepository.findAll();
     }
 
@@ -52,5 +51,11 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    public List<Product> listAll(String keyword) {
+        if(keyword!=null) {
+            return productRepository.search(keyword);
+        }
+        return productRepository.findAll();
+    }
 
 }
