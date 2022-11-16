@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+     ProductRepository productRepository;
 
     //get all products
     public List<Product> getAllProducts() {
@@ -32,9 +32,9 @@ public class ProductService {
     }
 
     //update products
-    public void updateProduct(int id, Product prod) {
+    public void updateProduct( Product prod) {
         Optional<Product> product;
-        product = productRepository.findById(id);
+        product = productRepository.findById(prod.getId());
         if (product.isEmpty()) {
             System.out.println("item not found");
             return;
