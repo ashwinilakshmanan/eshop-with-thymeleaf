@@ -27,7 +27,11 @@ public class ProductService {
 
     //add products
     public void addProduct(Product product) {
-        productRepository.save(product);
+        try {
+            productRepository.save(product);
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     //update products

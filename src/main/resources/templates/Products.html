@@ -7,6 +7,7 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 </head>
 <body >
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -61,7 +62,7 @@
         <tbody>
 
         <tr th:if="${#lists.isEmpty(product)}">
-            <td colspan="5">No Records found. Add some...!</td>
+
         </tr>
 
         <tr th:each="product: ${listItems}">
@@ -71,10 +72,14 @@
             <td>
                 <a type="button" class="btn btn-outline-primary" th:href="@{'/view/' + ${product.id}}">View</a>
                 <a th:href="@{/edit/{id}(id=${product.id})}"
-                   class="btn btn-primary">Update</a>
+                   class="btn btn-primary">
+                    <i class="fa fa-user-edit ml-2"></i>
+                </a>
 
                 <a th:href="@{/delete/{id}(id=${product.id})}"
-                   class="btn btn-danger">Delete</a>
+                   class="btn btn-danger">
+                    <i class="fa fa-user-times ml-2"></i>
+                </a>
 
             </td>
         </tr>
