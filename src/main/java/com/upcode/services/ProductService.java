@@ -22,20 +22,17 @@ public class ProductService {
 
     //get products by id
     public Optional<Product> getProduct(int id) {
+
         return productRepository.findById(id);
     }
 
     //add products
     public void addProduct(Product product) {
-        try {
-            productRepository.save(product);
-        }catch (Exception e){
-            throw e;
-        }
+        productRepository.save(product);
     }
 
     //update products
-    public void updateProduct( Product prod) {
+    public void updateProduct(Product prod) {
         Optional<Product> product;
         product = productRepository.findById(prod.getId());
         if (product.isEmpty()) {
@@ -56,7 +53,7 @@ public class ProductService {
     }
 
     public List<Product> listAll(String keyword) {
-        if(keyword!=null) {
+        if (keyword != null) {
             return productRepository.search(keyword);
         }
         return productRepository.findAll();

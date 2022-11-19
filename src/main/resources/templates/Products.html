@@ -9,7 +9,7 @@
           crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 </head>
-<body >
+<body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
     <!-- Brand -->
     <a class="navbar-brand" href="#">e-shop</a>
@@ -49,43 +49,45 @@
             <a href="/add_form" class="btn btn-primary btn-sm mb-3"> Add Product</a>
         </div>
     </div>
-    <table class="table table-striped table-bordered">
-        <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
 
-        <tbody>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
 
-        <tr th:if="${#lists.isEmpty(product)}">
+                <tbody>
 
-        </tr>
+                <tr th:if="${#lists.isEmpty(product)}">
 
-        <tr th:each="product: ${listItems}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.quantity}"></td>
-            <td>
-                <a type="button" class="btn btn-outline-primary" th:href="@{'/view/' + ${product.id}}">View</a>
-                <a th:href="@{/edit/{id}(id=${product.id})}"
-                   class="btn btn-primary">
-                    <i class="fa fa-user-edit ml-2"></i>
-                </a>
+                </tr>
 
-                <a th:href="@{/delete/{id}(id=${product.id})}"
-                   class="btn btn-danger">
-                    <i class="fa fa-user-times ml-2"></i>
-                </a>
+                <tr th:each="product: ${listItems}">
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.quantity}"></td>
+                    <td>
+                        <a type="button" class="btn btn-outline-primary" th:href="@{'/view/' + ${product.id}}">View</a>
+                        <a th:href="@{/edit/{id}(id=${product.id})}"
+                           class="btn btn-primary">
+                            <i class="fa fa-user-edit ml-2"></i>
+                        </a>
 
-            </td>
-        </tr>
-        </tbody>
+                        <a th:href="@{/delete/{id}(id=${product.id})}"
+                           class="btn btn-danger">
+                            <i class="fa fa-user-times ml-2"></i>
+                        </a>
 
-    </table>
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+
 
 </div>
 </body>

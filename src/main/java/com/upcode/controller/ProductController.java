@@ -27,6 +27,7 @@ public class ProductController {
         model.addAttribute("listItems",listProducts);
         model.addAttribute("keyword",keyword);
         return "products";
+
     }
 
     @GetMapping("/add_form")
